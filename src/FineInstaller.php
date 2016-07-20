@@ -17,7 +17,18 @@ class FineInstaller implements PackageInstallerInterface
      */
     public static function install(MoufManager $moufManager)
     {
-        InstallUtils::getOrCreateInstance("defaultTranslationService", "Mouf\\Utils\\I18n\\Fine\\Common\\FineCascadingTranslator", $moufManager);
+        $cascadingTranslator = InstallUtils::getOrCreateInstance("defaultTranslationService", "Mouf\\Utils\\I18n\\Fine\\Common\\FineCascadingTranslator", $moufManager);
+
+        if ($moufManager->has('twigEnvironment') && !$moufManager->has('fineTwigExtension')) {
+            $fineTwigExtension = $moufManager->createInstance(FineTwigExtension::class);
+
+            $fineTwigExtension->getConstructorArgumentProperty('translator')->setValue($cascadingTranslator);
+
+            $twigEnvironment = $moufManager->getInstanceDescriptor('twigEnvironment');
+            $extensions = $twigEnvironment->getSetterProperty('setExtensions')->getValue();
+            $extensions[] = $fineTwigExtension;
+            $twigEnvironment->getSetterProperty('setExtensions')->setValue($extensions);
+        }
 
         // Let's rewrite the MoufComponents.php file to save the component
         $moufManager->rewriteMouf();
