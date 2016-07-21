@@ -17,6 +17,9 @@
     	"mouf/mouf-installer": "~2.0",
     	"mouf/utils.i18n.fine.translation-interface": "~4.0"
     },
+    "suggest": {
+        "twig/twig": "For using the translator in Twig templates."
+    },
     "autoload": {
         "psr-4": {
             "Mouf\\Utils\\I18n\\Fine\\Common\\": "src/"
@@ -31,7 +34,7 @@
 	                {
 		                "type": "class",
 		                "class": "Mouf\\Utils\\I18n\\Fine\\Common\\FineInstaller",
-		                "description": "This installer will create a default translator for cascading many translator type"
+		                "description": "This installer will create a default translator for cascading many translators and optionally create Fine twig extension."
 	                }
 		    ],
 		    "doc" : [{

@@ -81,3 +81,16 @@ The interface `EditTranslationInterface` can be implemented to use the Mouf inte
 ###Trait
 
 You can use this trait to implement some method of the interface.
+
+### Twig extension
+
+This package contains the `FineTwigExtension` that will add the `t` filter to your Twig templates.
+ 
+Use like this:
+
+```twig
+{{ "my_key"| t }}
+```
+
+Please notice that the `FineTwigExtension` is appended to your Mouf instances only if a twig instance is already available in Mouf.
+If this package was installed *before* the *mouf/html.renderer.twig-exentensions* package, you might need to re-run the installer to installer the extension.
